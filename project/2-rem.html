@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>珠峰培训</title>
+    <!--
+       假设设计师给我们的设计稿是 750*1334  在这个设计稿中，有一个盒子距离左右两边各有20px的边距，盒子的高度是100px，里面有一段文字：珠峰培训  字体是48px ，盒子的背景颜色是绿色
+    -->
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            font-size: 100px; /*1REM=100PX*/
+        }
+
+        .header {
+            margin: 0 .2rem;
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            background: green;
+            font-size: .48rem;
+            color: #FFF;
+        }
+
+        /*REM响应式布局*/
+        /*REM是相对单位:相对于页面的根元素（HTML）的字体大小设定的值*/
+
+        /*750  1REM = 100PX   W 1REM->100PX
+        375                 W 1REM->50PX*/
+    </style>
+    <script type="text/javascript">
+        //->根据当前页面的宽度和设计稿的比例，动态调整根元素的字体大小，这样我们之前编写的所有以REM为单位的样式值都会跟着改变==>REM响应式布局
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 750 * 100 + 'px';
+    </script>
+</head>
+<body>
+<header class="header">珠峰培训</header>
+
+</body>
+</html>
