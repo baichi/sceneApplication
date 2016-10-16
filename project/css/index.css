@@ -177,6 +177,119 @@ body {
     height: 1.6rem;
 }
 
+/*--MESSAGE--*/
+.message {
+    background: #EAEAEA;
+}
 
+.message .messageList {
+    margin-top: .2rem;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.message .messageList li {
+    position: relative;
+    margin-bottom: .4rem;
+    padding: .25rem;
+    max-width: 3.6rem;
+    line-height: .4rem;
+    font-size: .26rem;
+    border-radius: .1rem;
+
+    /*开始的时候让每一条消息都向下偏移1REM，当在JS中控制显示的时候，我们在让它的偏移回归到0REM，这样的话每一条消息的出现都会有一个小的动画效果*/
+    -webkit-transform: translateY(1rem);
+    transform: translateY(1rem);
+    opacity: 0;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.message .messageList li.student {
+    float: left;
+    margin-left: 1.25rem;
+    background: #FFF;
+    border: .02rem solid #CACACA;
+}
+
+.message .messageList li.teacher {
+    float: right;
+    margin-right: 1.25rem;
+    background: #A2E45C;
+    border: .02rem solid #96B474;
+}
+
+.message .messageList li em {
+    position: absolute;
+    top: .2rem;
+    width: .1rem;
+    height: .2rem;
+}
+
+.message .messageList li.student em {
+    left: -.1rem;
+    background: url("../img/zf_messageArrow1.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.message .messageList li.teacher em {
+    right: -.1rem;
+    background: url("../img/zf_messageArrow2.png") no-repeat;
+    background-size: 100% 100%;
+}
+
+.message .messageList li img {
+    position: absolute;
+    top: 0;
+    width: .82rem;
+    height: .82rem;
+    border-radius: 50%;
+}
+
+.message .messageList li.student img {
+    left: -1rem;
+}
+
+.message .messageList li.teacher img {
+    right: -1rem;
+}
+
+.message .keyBoard {
+    position: absolute;
+    left: 0;
+    bottom: -.54rem;
+    width: 100%;
+    height: 5.16rem;
+    background: url("../img/zf_messageKeyboard.png") no-repeat;
+    background-size: 100% 100%;
+
+    -webkit-transform: translateY(3.7rem);
+    transform: translateY(3.7rem);
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.message .keyBoard .textTip {
+    display: none;
+    position: absolute;
+    top: .35rem;
+    left: .9rem;
+    width: 4rem;
+    height: .4rem;
+    line-height: .4rem;
+    font-size: .25rem;
+}
+
+.message .keyBoard .submit {
+    display: none;
+    position: absolute;
+    right: .1rem;
+    bottom: .6rem;
+    z-index: 5;
+    width: 1.47rem;
+    height: .74rem;
+    background: url("../img/zf_messageChat.png") no-repeat;
+    background-size: 100% 100%;
+}
 
 

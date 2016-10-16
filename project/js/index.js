@@ -12,7 +12,6 @@
     pro.queryURLParameter = queryURLParameter;
 }(String.prototype);
 
-
 /*--LOADING--*/
 var loadingRender = (function () {
     var ary = ["icon.png", "zf_concatAddress.png", "zf_concatInfo.png", "zf_concatPhone.png", "zf_course.png", "zf_course1.png", "zf_course2.png", "zf_course3.png", "zf_course4.png", "zf_course5.png", "zf_course6.png", "zf_cube1.png", "zf_cube2.png", "zf_cube3.png", "zf_cube4.png", "zf_cube5.png", "zf_cube6.png", "zf_cubeBg.jpg", "zf_cubeTip.png", "zf_emploment.png", "zf_messageArrow1.png", "zf_messageArrow2.png", "zf_messageChat.png", "zf_messageKeyboard.png", "zf_messageLogo.png", "zf_messageStudent.png", "zf_outline.png", "zf_phoneBg.jpg", "zf_phoneDetail.png", "zf_phoneListen.png", "zf_phoneLogo.png", "zf_return.png", "zf_style1.jpg", "zf_style2.jpg", "zf_style3.jpg", "zf_styleTip1.png", "zf_styleTip2.png", "zf_teacher1.png", "zf_teacher2.png", "zf_teacher3.jpg", "zf_teacher4.png", "zf_teacher5.png", "zf_teacher6.png", "zf_teacherTip.png"];
@@ -112,9 +111,92 @@ var phoneRender = (function () {
     }
 })();
 
-
 /*--MESSAGE--*/
 var messageRender = (function () {
+    var $message = $('#message'),
+        $messageList = $message.children('.messageList'),
+        $list = $messageList.children('li'),
+        $keyBoard = $message.children('.keyBoard'),
+        $textTip = $keyBoard.children('.textTip'),
+        $submit = $keyBoard.children('.submit');
+
+    var autoTimer = null,
+        step = -1,
+        total = $list.length,
+        bounceTop = 0;
+
+    var messageMusic = $('#messageMusic')[0];
+
+    //->messageMove:消息列表的发送
+    function messageMove() {
+        autoTimer = window.setInterval(function () {
+            step++;
+            var $cur = $list.eq(step);
+            $cur.css({
+                opacity: 1,
+                transform: 'translateY(0)'
+            });
+
+            //->当发送完成第三条的时候，开启我们的键盘操作
+            if (step === 2) {
+                window.clearInterval(autoTimer);
+                $keyBoard.css('transform', 'translateY(0)');
+                $textTip.css('display', 'block');
+                textMove();
+            }
+
+            //->从第四条开始,我们没法送一条消息，都需要让整个消息区域往上移动相关的距离
+            if (step >= 3) {
+                bounceTop -= $cur[0].offsetHeight + 10;
+                $messageList.css('transform', 'translateY(' + bounceTop + 'px)');
+            }
+
+            //->当消息发送完成
+            if (step === total - 1) {
+                window.clearInterval(autoTimer);
+                window.setTimeout(function () {
+                    if (page === 2) return;
+                    $message.css('display', 'none');
+                    messageMusic.pause();
+                    cubeRender.init();
+                }, 1500);
+            }
+        }, 1500);
+    }
+
+    //->textMove:实现文字打印机
+    function textMove() {
+        var text = '都学了啊，可还是找不到工作!',
+            n = -1,
+            result = '';
+        var textTimer = window.setInterval(function () {
+            n++;
+            result += text[n];
+            $textTip.html(result);
+            if (n === text.length - 1) {
+                window.clearInterval(textTimer);
+                $submit.css('display', 'block').singleTap(function () {
+                    $textTip.css('display', 'none');
+                    $keyBoard.css('transform', 'translateY(3.7rem)');
+                    messageMove();
+                });
+            }
+        }, 100);
+    }
+
+
+    return {
+        init: function () {
+            $message.css('display', 'block');
+            messageMove();
+            messageMusic.play();
+        }
+    }
+})();
+
+/*--CUBE--*/
+var cubeRender = (function () {
+    
     return {
         init: function () {
 
@@ -132,3 +214,9 @@ if (page === 0 || isNaN(page)) {
 if (page === 1) {
     phoneRender.init();
 }
+
+if (page === 2) {
+    messageRender.init();
+}
+
+
